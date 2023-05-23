@@ -4,11 +4,14 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/bensivo/hexagonal-architecture-study/internal/domain/orders"
+	"github.com/bensivo/hexagonal-architecture-study/internal/domain/order"
+	"github.com/bensivo/hexagonal-architecture-study/internal/infra/storage"
 )
 
 func main() {
-	orderService := orders.NewOrdersService()
+	repo := storage.NewInMemoryOrderRepo()
+
+	orderService := order.NewOrdersService(repo)
 
 	for i := 0; i < 5; i++ {
 		_, err := orderService.CreateOrder("Cheerios", 1)
