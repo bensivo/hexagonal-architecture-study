@@ -14,6 +14,9 @@ And the following are implemented outside of the module:
 - Driven adapters: implementations of deiven ports, using a sepcific framework or protocol (i.e. SQL database)
 
 
+Code structure is based on the examples found in the book "Event Driven Architecture in Golang" - by Michael Stack
+https://github.com/PacktPublishing/Event-Driven-Architecture-in-Golang/ 
+
 ## Scenario
 So this example is non-trivial, we'll implement a basic order-fufillment application here. 
 Orders will be received, shipped, and delivered, with this service tracking all of those actions.

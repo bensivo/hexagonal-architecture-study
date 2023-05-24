@@ -1,4 +1,4 @@
-package order
+package orders
 
 type OrderStatus string
 
@@ -9,8 +9,7 @@ const (
 )
 
 type Order struct {
-	ID string
-
+	ID       string
 	Product  string
 	Quantity int
 	Status   OrderStatus
