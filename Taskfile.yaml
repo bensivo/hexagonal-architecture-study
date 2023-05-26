@@ -1,0 +1,33 @@
+version: '3'
+
+# Task is a make-like script manager written in go. https://taskfile.dev/usage/
+
+tasks:
+  run:
+    cmds:
+      - go run ./cmd/app/main.go
+
+  post:
+    summary: |
+      POST an order to the order service
+      Usage: task post -- <product name>
+    cmds:
+      - |
+        curl --request POST \
+          --silent \
+          --url http://localhost:9999/orders \
+          --header 'Content-Type: application/json' \
+          --data "{
+          \"Product\": \"{{.CLI_ARGS}}\",
+          \"Quantity\": 1
+        }" | jq
+  get:
+    summary: |
+      Get all orders in the service
+      Usage: task get
+    cmds:
+      - |
+        curl --request GET \
+        --silent \
+        --url http://localhost:9999/orders \
+        --header 'Content-Type: application/json' | jq

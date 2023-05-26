@@ -36,7 +36,7 @@ func (os *OrderServiceImpl) CreateOrder(product string, quantity int) (*Order, e
 	order := &Order{
 		ID:       id.String(),
 		Product:  product,
-		Quantity: 1,
+		Quantity: quantity,
 		Status:   RECEIVED,
 	}
 
