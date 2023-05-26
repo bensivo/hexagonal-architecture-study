@@ -5,41 +5,14 @@ import (
 	"testing"
 
 	"github.com/bensivo/hexagonal-architecture-study/internal/orders"
+	"github.com/bensivo/hexagonal-architecture-study/internal/orders/adapters"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
 
-// START - mock order repository using testify's mocking library
-// TODO - use the vektra/mockery package to auto-generate mock code
-type MockOrderRepo struct {
-	mock.Mock
-}
-
-func (m *MockOrderRepo) Save(order *orders.Order) error {
-	args := m.Called(order)
-	return args.Error(0)
-}
-func (m *MockOrderRepo) GetMany() ([]orders.Order, error) {
-	args := m.Called()
-	return args.Get(0).([]orders.Order), args.Error(1)
-}
-
-func (m *MockOrderRepo) GetOne(id string) (*orders.Order, error) {
-	args := m.Called(id)
-	if args.Get(0) == nil {
-		return nil, args.Error(1)
-	} else {
-		return args.Get(0).(*orders.Order), args.Error(1)
-	}
-}
-
-var _ orders.OrderRepository = (*MockOrderRepo)(nil)
-
-// END - mock order repository using testify's mocking library
-
 func TestCreateOrder(t *testing.T) {
-	repo := &MockOrderRepo{}
+	repo := &adapters.MockOrderRepo{}
 	repo.Mock.On("Save", mock.Anything).Return(nil)
 
 	s := orders.NewOrderService(repo)
@@ -60,7 +33,7 @@ func TestCreateOrder(t *testing.T) {
 func TestGetOrders(t *testing.T) {
 	res := []orders.Order{}
 
-	repo := &MockOrderRepo{}
+	repo := &adapters.MockOrderRepo{}
 	repo.Mock.On("GetMany").Return(res, nil)
 
 	s := orders.NewOrderService(repo)
@@ -75,7 +48,7 @@ func TestGetOrders(t *testing.T) {
 }
 
 func TestGetOrder(t *testing.T) {
-	repo := &MockOrderRepo{}
+	repo := &adapters.MockOrderRepo{}
 	repo.Mock.On("GetOne", "id").Return(&orders.Order{}, nil)
 	s := orders.NewOrderService(repo)
 
@@ -94,7 +67,7 @@ func TestGetOrder(t *testing.T) {
 }
 
 func TestGetOrder404(t *testing.T) {
-	repo := &MockOrderRepo{}
+	repo := &adapters.MockOrderRepo{}
 	repo.Mock.On("GetOne", "id").Return(nil, fmt.Errorf("error"))
 	s := orders.NewOrderService(repo)
 
