@@ -1,11 +1,7 @@
 package e2e
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
 	"testing"
 
 	"github.com/brianvoe/gofakeit/v6"
@@ -62,57 +58,4 @@ func TestOrders_PostAndGetAll(t *testing.T) {
 	// THEN: Both orders should be in the response
 	assert.Contains(t, ids, id_1)
 	assert.Contains(t, ids, id_2)
-}
-
-func postJSON(url string, body map[string]interface{}) (map[string]interface{}, error) {
-	post_req_body, _ := json.Marshal(body)
-	post_req_buffer := bytes.NewBuffer(post_req_body)
-	post_res, err := http.Post(url, "application/json", post_req_buffer)
-	if err != nil {
-		return nil, err
-	}
-	defer post_res.Body.Close()
-
-	post_res_bytes, err := ioutil.ReadAll(post_res.Body)
-	if err != nil {
-		return nil, err
-	}
-	post_res_body := make(map[string]interface{})
-	json.Unmarshal(post_res_bytes, &post_res_body)
-
-	return post_res_body, nil
-}
-
-func getJSON(url string) (map[string]interface{}, error) {
-	get_res, err := http.Get(url)
-	if err != nil {
-		return nil, err
-	}
-	defer get_res.Body.Close()
-
-	get_res_bytes, err := ioutil.ReadAll(get_res.Body)
-	if err != nil {
-		return nil, err
-	}
-	get_res_body := make(map[string]interface{})
-	json.Unmarshal(get_res_bytes, &get_res_body)
-
-	return get_res_body, nil
-}
-
-func getJSONArr(url string) ([]map[string]interface{}, error) {
-	get_res, err := http.Get(url)
-	if err != nil {
-		return nil, err
-	}
-	defer get_res.Body.Close()
-
-	get_res_bytes, err := ioutil.ReadAll(get_res.Body)
-	if err != nil {
-		return nil, err
-	}
-	get_res_body := make([]map[string]interface{}, 0)
-	json.Unmarshal(get_res_bytes, &get_res_body)
-
-	return get_res_body, nil
 }
