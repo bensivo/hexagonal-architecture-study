@@ -14,8 +14,8 @@ func main() {
 	repo := adapters.NewInMemoryOrderRepo()
 	svc := orders.NewOrderService(repo)
 
-	httpAdapter := adapters.NewHttpAdapter(svc, logger)
-	httpAdapter.RegisterRoutes(engine)
+	ginAdapter := adapters.NewGinAdapter(svc, logger)
+	ginAdapter.RegisterRoutes(engine)
 
 	gin.Start(engine)
 }

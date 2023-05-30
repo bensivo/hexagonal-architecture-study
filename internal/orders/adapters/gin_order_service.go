@@ -11,24 +11,24 @@ import (
 	"github.com/bensivo/hexagonal-architecture-study/internal/orders"
 )
 
-// Exposes an OrderService using HTTP endpoints
-type HttpOrderService struct {
+// Adapter for the OrderService, exposes the service's endpoints as HTTP routes on a gin server
+type GinOrderService struct {
 	svc    orders.OrderService
 	logger *zap.SugaredLogger
 }
 
-func NewHttpAdapter(svc orders.OrderService, logger *zap.SugaredLogger) *HttpOrderService {
-	return &HttpOrderService{
+func NewGinAdapter(svc orders.OrderService, logger *zap.SugaredLogger) *GinOrderService {
+	return &GinOrderService{
 		svc:    svc,
 		logger: logger,
 	}
 }
 
-func (hos *HttpOrderService) RegisterRoutes(engine *gin.Engine) {
+func (gos *GinOrderService) RegisterRoutes(engine *gin.Engine) {
 	engine.GET("/orders", func(c *gin.Context) {
-		res, err := hos.svc.GetOrders()
+		res, err := gos.svc.GetOrders()
 		if err != nil {
-			hos.logger.Errorf("Error getting orders: %v", err)
+			gos.logger.Errorf("Error getting orders: %v", err)
 			http.Error(c.Writer, "Unknown error", http.StatusInternalServerError)
 			return
 		}
@@ -38,9 +38,9 @@ func (hos *HttpOrderService) RegisterRoutes(engine *gin.Engine) {
 
 	engine.GET("/orders/:id", func(c *gin.Context) {
 		id := c.Param("id")
-		res, err := hos.svc.GetOrder(id)
+		res, err := gos.svc.GetOrder(id)
 		if err != nil {
-			hos.logger.Errorf("Error getting order %s: %v", id, err)
+			gos.logger.Errorf("Error getting order %s: %v", id, err)
 			http.Error(c.Writer, "Unknown error", http.StatusInternalServerError)
 			return
 		}
@@ -51,7 +51,7 @@ func (hos *HttpOrderService) RegisterRoutes(engine *gin.Engine) {
 	engine.POST("/orders", func(c *gin.Context) {
 		body, err := ioutil.ReadAll(c.Request.Body)
 		if err != nil {
-			hos.logger.Errorf("Error reading body: %v", err)
+			gos.logger.Errorf("Error reading body: %v", err)
 			http.Error(c.Writer, "Failed to read body", http.StatusBadRequest)
 			return
 		}
@@ -62,20 +62,20 @@ func (hos *HttpOrderService) RegisterRoutes(engine *gin.Engine) {
 		}{}
 		err = json.Unmarshal(body, dto)
 		if err != nil {
-			hos.logger.Errorf("Error unmarshalling JSON: %v", err)
+			gos.logger.Errorf("Error unmarshalling JSON: %v", err)
 			http.Error(c.Writer, "Failed to parse JSON", http.StatusBadRequest)
 			return
 		}
 
-		hos.logger.Infof("Creating order with product: %s, quantity: %d", dto.Product, dto.Quantity)
-		order, err := hos.svc.CreateOrder(dto.Product, dto.Quantity)
+		gos.logger.Infof("Creating order with product: %s, quantity: %d", dto.Product, dto.Quantity)
+		order, err := gos.svc.CreateOrder(dto.Product, dto.Quantity)
 		if err != nil {
-			hos.logger.Infof("Error creating order: %v", err)
+			gos.logger.Infof("Error creating order: %v", err)
 			http.Error(c.Writer, "Failed to create order", http.StatusBadRequest)
 			return
 		}
 
-		hos.logger.Infof("Successfully created order: %s", order.ID)
+		gos.logger.Infof("Successfully created order: %s", order.ID)
 		c.JSON(200, order)
 	})
 }
