@@ -25,8 +25,10 @@ Orders will be received, shipped, and delivered, with this service tracking all 
 ## Productionalization
 To make this app more production-ready, it will need the following capabilities:
    - [x] Unit test suite
-   - [ ] E2E test suite
-   - [ ] Local ephemeral env for E2E Testing (i.e. docker-compose)
+   - [x] E2E test suite
+   - [x] Local ephemeral env for E2E Testing (i.e. docker-compose)
+   - [ ] Persistent storage / DB 
+   - [ ] CICD
    - [ ] OpenTelemetry 
         - otel loggging
         - otel spans/traces for each entrypoint (i.e. http endpoint), and each external service call

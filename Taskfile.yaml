@@ -14,6 +14,16 @@ tasks:
           go install github.com/cosmtrek/air@latest
         fi
       - air
+  
+  test:
+    summary: Run unit tests
+    cmds:
+      - go test -count=1 ./internal/... ./cmd/...
+
+  e2e:
+    summary: Run e2e tests
+    cmds:
+      - go test -count=1 ./e2e/...
 
   post:
     summary: |
