@@ -11,7 +11,7 @@ In hexagonal architecture, each module contains the following:
 
 And the following are implemented outside of the module:
 - Driver adapter: implementations of driver ports, using a specific framework or protocol (i.e. HTTP controllers)
-- Driven adapters: implementations of deiven ports, using a sepcific framework or protocol (i.e. SQL database)
+- Driven adapters: implementations of driven ports, using a sepcific framework or protocol (i.e. SQL database)
 
 
 Code structure is based on the examples found in the book "Event Driven Architecture in Golang" - by Michael Stack
@@ -20,3 +20,14 @@ https://github.com/PacktPublishing/Event-Driven-Architecture-in-Golang/
 ## Scenario
 So this example is non-trivial, we'll implement a basic order-fufillment application here. 
 Orders will be received, shipped, and delivered, with this service tracking all of those actions.
+
+
+## Productionalization
+To make this app more production-ready, it will need the following capabilities:
+   - [x] Unit test suite
+   - [ ] E2E test suite
+   - [ ] Local ephemeral env for E2E Testing (i.e. docker-compose)
+   - [ ] OpenTelemetry 
+        - otel loggging
+        - otel spans/traces for each entrypoint (i.e. http endpoint), and each external service call
+        - otel metrics (cpu, mem, net in/out, num requests)

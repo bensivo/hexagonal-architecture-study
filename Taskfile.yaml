@@ -4,8 +4,16 @@ version: '3'
 
 tasks:
   run:
+    summary: |
+      Run the application with live-reloading using air.
+      Installs air if it is not already installed
     cmds:
-      - go run ./cmd/app/main.go
+      - |
+        if ! [ -x "$(command -v air)" ]; then
+          echo "Air is not installed. Installing"
+          go install github.com/cosmtrek/air@latest
+        fi
+      - air
 
   post:
     summary: |
@@ -31,3 +39,16 @@ tasks:
         --silent \
         --url http://localhost:9999/orders \
         --header 'Content-Type: application/json' | jq
+
+  up:
+    summary: |
+      Run the application using a local docker-compose environment
+    cmds:
+      - docker-compose up --build -d 
+      - docker-compose logs -f
+
+  down:
+    summary: |
+      Tear-down the docker-compose environmnet
+    cmds:
+      - docker-compose down

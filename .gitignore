@@ -20,4 +20,6 @@
 # Go workspace file
 go.work
 
-./app
+order_service
+
+tmp/

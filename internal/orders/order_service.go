@@ -5,7 +5,7 @@ import (
 )
 
 // Input / driving port - defines the functions exposed by this application to external components
-// Driving adapters should impement this interface to expose this application using a specific protocol
+// Driving adapters should implement this interface to expose this application using a specific protocol
 //
 //	Example - an HTTP adapter would create HTTP endpoints for each function
 //	Example - a GRPC adapter would expose a GRPC service with functions for each service
