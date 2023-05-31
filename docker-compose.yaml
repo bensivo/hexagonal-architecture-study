@@ -5,7 +5,5 @@ services:
     hostname: order_service
     build: 
       context: ./
-      target: build
-    command: ["go", "run", "/build/cmd/app/main.go"]
     ports:
       - 9999:9999

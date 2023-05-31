@@ -4,7 +4,7 @@ WORKDIR /build
 
 COPY . .
 
-RUN go build -o order_service ./cmd/app/main.go
+RUN go build -o order_service ./main.go
 
 
 FROM alpine:3.18
