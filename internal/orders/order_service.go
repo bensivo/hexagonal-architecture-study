@@ -8,13 +8,16 @@ import (
 // Driving adapters should implement this interface to expose this application using a specific protocol
 //
 //	Example - an HTTP adapter would create HTTP endpoints for each function
-//	Example - a GRPC adapter would expose a GRPC service with functions for each service
+//	Example - a GRPC adapter would expose a GRPC service with unary RPCs for each function
 type OrderService interface {
 	CreateOrder(product string, quantity int) (*Order, error)
 	GetOrders() ([]Order, error)
 	GetOrder(id string) (*Order, error)
 }
 
+// This struct implements OrderService using ports for all external component interaction.
+//
+// Ideally, what is left is pure business logic which is both easily testable, and agnostic of any intrastructure changes made during the lifespan of this project.
 type OrderServiceImpl struct {
 	repo OrderRepository
 }

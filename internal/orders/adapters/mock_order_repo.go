@@ -5,6 +5,8 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
+// Implementation of OrderRepository used in unit tests
+// TODO: Look into https://github.com/vektra/mockery for auto-generating mock objects
 type MockOrderRepo struct {
 	mock.Mock
 }

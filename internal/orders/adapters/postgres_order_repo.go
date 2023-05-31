@@ -9,6 +9,10 @@ import (
 	"go.uber.org/zap"
 )
 
+// Implementation of OrderRepository using a postgres database as the storage mechanism.
+//
+// NOTE: this repo does not bootstrap the tables it uses, look at postgres/migrations.go for the migration which creates the order table.
+// In a bigger project, each domain module would bootstrap its own tables when the adapter is initialized - using a different schema for each domain module.
 type PostgresOrderRepo struct {
 	conn   *pgx.Conn // TODO: we should be using a connection pool here, instead of a single connection
 	logger *zap.SugaredLogger

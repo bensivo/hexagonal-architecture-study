@@ -6,6 +6,8 @@ import (
 	"github.com/bensivo/hexagonal-architecture-study/internal/orders"
 )
 
+// Implementation of OrderRepository using a simple in-memory map as the storage mechanism
+// Super simple, but loses all its data when the application restarts. Good for local development, where you don't want to spin up an entire postgres database.
 type InMemoryOrderRepo struct {
 	orders map[string]orders.Order
 }
