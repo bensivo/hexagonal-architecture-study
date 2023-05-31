@@ -1,0 +1,1 @@
+This folder contains sqlite .db files, if using sqlite as the storage mechanism

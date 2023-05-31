@@ -4,34 +4,36 @@ services:
   order_service: 
     build:
       context: ./
+    volumes:
+      - ./data:/app/data
     hostname: order_service
     container_name: order_service
     restart: always
     ports:
       - 9999:9999
   
-  postgres:
-    image: postgres:15.3
-    hostname: postgres
-    container_name: postgres
-    restart: always
-    ports: 
-      - 5432:5432
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: order_service
+  # postgres:
+  #   image: postgres:15.3
+  #   hostname: postgres
+  #   container_name: postgres
+  #   restart: always
+  #   ports: 
+  #     - 5432:5432
+  #   environment:
+  #     POSTGRES_USER: user
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: order_service
 
-  # Basic open source web-app for interacting with postgres.
-  pgweb:
-    image: sosedoff/pgweb
-    container_name: pgweb
-    restart: always
-    ports: 
-      - 8081:8081
-    links: 
-      - postgres:postgres
-    environment:
-      - DATABASE_URL=postgres://user:password@postgres:5432/order_service?sslmode=disable
-    depends_on:
-      - postgres
+  # # Basic open source web-app for interacting with postgres.
+  # pgweb:
+  #   image: sosedoff/pgweb
+  #   container_name: pgweb
+  #   restart: always
+  #   ports: 
+  #     - 8081:8081
+  #   links: 
+  #     - postgres:postgres
+  #   environment:
+  #     - DATABASE_URL=postgres://user:password@postgres:5432/order_service?sslmode=disable
+  #   depends_on:
+  #     - postgres

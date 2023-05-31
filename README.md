@@ -38,8 +38,8 @@ Orders will be received, shipped, and delivered, with this service tracking all 
 - Air - Live reloading, for local development
 - Docker - Packaging, deployment, local e2e testing
 - Taskfile - Script management
-- Postgres - Database
-- pgx - Postgres driver for golang 
+- Postgres - Database (Option 1)
+- SQLite - Database (Option 2)
 
 ## Productionalization
 To make this app more production-ready, it will need the following capabilities:
@@ -60,5 +60,4 @@ To make this app more production-ready, it will need the following capabilities:
    - google domains for domains
    - lets encrypt for SSL
    - nginx in reverse proxy mode
-   - maybe a different database, if postgres is too heavy to run on a small droplet - sqlite might be a good option
 - [ ] Add Jaeger to the docker-compose, and push traces to it for each HTTP call. Consider honeycomb.io for managed trace storage (free for last 2 months of storage)
