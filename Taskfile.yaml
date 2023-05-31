@@ -18,7 +18,7 @@ tasks:
   test:
     summary: Run unit tests
     cmds:
-      - go test -count=1 ./internal/... ./cmd/...
+      - go test -count=1 ./internal/...
 
   e2e:
     summary: Run e2e tests

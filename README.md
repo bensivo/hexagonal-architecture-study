@@ -38,13 +38,15 @@ Orders will be received, shipped, and delivered, with this service tracking all 
 - Air - Live reloading, for local development
 - Docker - Packaging, deployment, local e2e testing
 - Taskfile - Script management
+- Postgres - Database
+- pgx - Postgres driver for golang 
 
 ## Productionalization
 To make this app more production-ready, it will need the following capabilities:
    - [x] Unit test suite
    - [x] E2E test suite
    - [x] Local ephemeral env for E2E Testing (i.e. docker-compose)
-   - [ ] Persistent storage / DB 
+   - [x] Persistent storage / DB 
    - [ ] CICD
    - [ ] OpenTelemetry 
         - otel loggging
