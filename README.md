@@ -52,3 +52,13 @@ To make this app more production-ready, it will need the following capabilities:
         - otel loggging
         - otel spans/traces for each entrypoint (i.e. http endpoint), and each external service call
         - otel metrics (cpu, mem, net in/out, num requests)
+
+## TODO
+- [ ] Add another module - catalog. Lists all products available.
+- [ ] Create webapp - add products to a cart and then submit the order (cart will be only frontend, no backend persistence). Later, you can enter your order id and see the status
+- [ ] Deploy to digital ocean droplet:
+   - google domains for domains
+   - lets encrypt for SSL
+   - nginx in reverse proxy mode
+   - maybe a different database, if postgres is too heavy to run on a small droplet - sqlite might be a good option
+- [ ] Add Jaeger to the docker-compose, and push traces to it for each HTTP call. Consider honeycomb.io for managed trace storage (free for last 2 months of storage)
