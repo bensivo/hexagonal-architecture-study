@@ -59,3 +59,14 @@ func TestOrders_PostAndGetAll(t *testing.T) {
 	assert.Contains(t, ids, id_1)
 	assert.Contains(t, ids, id_2)
 }
+
+// func TestOrders_StressTest(t *testing.T) {
+// 	for i := 0; i < 10000; i++ {
+// 		product := gofakeit.Fruit()
+// 		quantity := gofakeit.Number(1, 10)
+// 		postJSON("http://localhost:9999/orders", map[string]interface{}{
+// 			"Product":  product,
+// 			"Quantity": quantity,
+// 		})
+// 	}
+// }

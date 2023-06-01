@@ -54,6 +54,7 @@ To make this app more production-ready, it will need the following capabilities:
         - otel metrics (cpu, mem, net in/out, num requests)
 
 ## TODO
+- [ ] Find the source of the memory leak - memory increases with each POST request
 - [ ] Add another module - catalog. Lists all products available.
 - [ ] Create webapp - add products to a cart and then submit the order (cart will be only frontend, no backend persistence). Later, you can enter your order id and see the status
 - [ ] Deploy to digital ocean droplet:
